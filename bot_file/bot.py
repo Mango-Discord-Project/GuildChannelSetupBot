@@ -23,7 +23,7 @@ async def on_ready():
     print(f'{now} >> {BotName} is on ready <<')
 
 @bot.command()
-async def setup(ctx):
+async def Csetup(ctx):
     for index in channelData:
         category = await ctx.guild.create_category(name=index)
         for i in channelData[index]:
