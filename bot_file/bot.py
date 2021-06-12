@@ -1,24 +1,24 @@
 import discord
 import json
 from discord.ext import commands
+from datetime import datetime
 
-with open('./setting/Token.json') as TokenFile:
+def now(): return f'[{datetime.now().strftime("%Y/%m/%d %H:%M:%S")}]'
+
+with open('./Token.json', 'r') as TokenFile:
     TokenData = json.load(TokenFile)
 
-with open('./setting/botSetting.json') as SettingFile:
-    SettingData = json.load(SettingFile)
-
-with open('./setting/channel.json', 'r', encoding='utf8') as channelFile:
+with open('./channel.json', 'r', encoding='utf8') as channelFile:
     channelData = json.load(channelFile)
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=SettingData['Prefix'], intents=intents)
+bot = commands.Bot(command_prefix='gs.', intents=intents)
 
 @bot.event
 async def on_ready():
-    BotName = SettingData['BotName']
-    print(f'>> {BotName} is on ready')
+    print(f'>> Guild Channel Setup Bot is on ready')
 
+@bot.is_owner()
 @bot.command()
 async def Csetup(ctx):
     for index in channelData:
